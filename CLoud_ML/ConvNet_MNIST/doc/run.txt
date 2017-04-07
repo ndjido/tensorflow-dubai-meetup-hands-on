@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+#local run
+/anaconda/bin/python -m train.model \
+--output_dir ./output \
+--checkpoint_dir ./output/model \
+--input_dir ./input
+
+
+# Cloud ML run
+gcloud ml-engine jobs submit training TF_CONVNET_MNIST_24 \
+--package-path train \
+--job-dir gs://dubai-tf-meetup/TF_CONVNET_MNIST_1 \
+--module-name train.model \
+--region europe-west1 \
+-- \
+--output_dir gs://dubai-tf-meetup/output \
+--checkpoint_dir gs://dubai-tf-meetup/output
+
+
+
+
+
+
+
+
+
+
+
